@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tony M. George | Full Stack Developer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg: #F3F5F4;
+    --surface: #FFFFFF;
+    --ink: #16202A;
+    --muted: #59636D;
+    --line: #DEE3E1;
+    --coral: #DD5240;
+    --coral-dim: #F6DAD5;
+    --teal: #2C6B63;
+    --teal-dim: #DCE9E6;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  ul{list-style:none;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px;}
+  @media(min-width:640px){.wrap{padding:0 32px;}}
+  :focus-visible{outline:2px solid var(--coral); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,245,244,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; row-gap:10px;
+    padding:14px 20px; max-width:1080px; margin:0 auto;
+  }
+  @media(min-width:640px){.nav{padding:18px 32px;}}
+  .logo{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:1.15rem;
+    display:flex; align-items:center; gap:8px;
+    flex-shrink:0;
+  }
+  .logo .dot{width:8px; height:8px; border-radius:50%; background:var(--coral);}
+  .navlinks{
+    display:flex; flex-wrap:wrap; justify-content:center;
+    gap:14px 18px; font-size:0.82rem; color:var(--muted);
+    width:100%; order:3;
+  }
+  .navlinks a:hover{color:var(--ink);}
+  @media(min-width:640px){
+    .navlinks{width:auto; order:0; justify-content:flex-end; gap:24px; font-size:0.88rem;}
+  }
+  @media(min-width:900px){
+    .navlinks{gap:32px; font-size:0.94rem;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:76px 0 88px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media(max-width:820px){
+    .hero-grid{grid-template-columns:1fr; gap:40px;}
+    .hero{padding:48px 0 56px;}
+  }
+  .kicker{
+    color:var(--teal);
+    font-size:0.95rem;
+    font-weight:500;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.4rem);
+    line-height:1.08;
+    margin-bottom:22px;
+  }
+  .hero p.lede{
+    color:var(--muted);
+    font-size:1.08rem;
+    max-width:52ch;
+    margin-bottom:32px;
+  }
+  .cta-row{display:flex; flex-wrap:wrap; gap:14px; margin-bottom:44px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 24px;
+    border-radius:8px;
+    font-size:0.95rem;
+    font-weight:500;
+    border:1px solid var(--line);
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .btn-primary:hover{background:#2b3947;}
+  .btn-ghost{background:transparent; color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink);}
+
+  .stat-row{display:flex; gap:36px; flex-wrap:wrap;}
+  .stat b{
+    display:block; font-family:'Space Grotesk', sans-serif;
+    font-size:1.7rem; font-weight:700; color:var(--ink);
+  }
+  .stat span{color:var(--muted); font-size:0.88rem;}
+
+  .portrait-frame{
+    position:relative;
+    max-width:340px;
+    margin:0 auto;
+  }
+  .portrait-frame::before{
+    content:"";
+    position:absolute;
+    top:16px; left:16px;
+    width:100%; height:100%;
+    border-radius:18px;
+    border:2px solid var(--coral);
+    z-index:0;
+  }
+  .portrait-frame img{
+    position:relative; z-index:1;
+    border-radius:18px;
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    object-position:60% 30%;
+    box-shadow:0 24px 48px -24px rgba(22,32,42,0.35);
+  }
+
+  /* ---------- Section shell ---------- */
+  section{padding:44px 0;}
+  @media(min-width:640px){section{padding:64px 0;}}
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:36px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:18px;
+  }
+  .section-head h2{font-size:1.7rem;}
+  .section-head .tag{color:var(--muted); font-size:0.9rem;}
+
+  /* ---------- Expertise ---------- */
+  .expertise-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+    gap:20px;
+  }
+  @media(min-width:640px){.expertise-grid{gap:28px;}}
+  .contact-btn{
+    background: #6886a3;
+  }
+  .expertise-card h3{font-size:1.02rem; margin-bottom:14px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    padding:6px 11px;
+    border-radius:6px;
+    background:var(--teal-dim);
+    color:var(--teal);
+  }
+
+  /* ---------- Projects ---------- */
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(min(300px, 100%),1fr));
+    gap:20px;
+  }
+  @media(min-width:640px){.project-grid{gap:24px;}}
+  .project-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px;
+  }
+  @media(min-width:640px){.project-card{padding:28px;}}
+  .project-card .label{
+    color:var(--coral); font-size:0.82rem; font-weight:500; margin-bottom:10px;
+  }
+  .project-card h3{font-size:1.2rem; margin-bottom:10px;}
+  .project-card p{color:var(--muted); font-size:0.95rem; margin-bottom:18px;}
+  .project-card .chip-row .chip{background:var(--coral-dim); color:var(--coral);}
+
+  /* ---------- Experience timeline ---------- */
+  .timeline{border-left:2px solid var(--line); padding-left:20px; display:flex; flex-direction:column; gap:36px;}
+  @media(min-width:640px){.timeline{padding-left:32px; gap:44px;}}
+  .tl-item{position:relative;}
+  .tl-item::before{
+    content:"";
+    position:absolute; left:-26px; top:4px;
+    width:12px; height:12px; border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--coral);
+  }
+  @media(min-width:640px){.tl-item::before{left:-38px;}}
+  .tl-item .role{font-size:1.12rem; margin-bottom:2px;}
+  .tl-item .meta{color:var(--muted); font-size:0.9rem; margin-bottom:14px;}
+  .tl-item ul{display:flex; flex-direction:column; gap:8px;}
+  .tl-item li{
+    color:var(--ink);
+    font-size:0.96rem;
+    padding-left:18px;
+    position:relative;
+  }
+  .tl-item li::before{
+    content:"–";
+    position:absolute; left:0; color:var(--muted);
+  }
+
+  /* ---------- Domains ---------- */
+  .domain-row{display:flex; flex-wrap:wrap; gap:10px;}
+  .domain-pill{
+    padding:9px 18px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    font-size:0.9rem;
+    background:var(--surface);
+  }
+
+  /* ---------- Education ---------- */
+  .edu-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(240px,100%),1fr)); gap:24px;}
+  .edu-card{border-left:2px solid var(--teal); padding-left:18px;}
+  .edu-card .yr{color:var(--teal); font-size:0.85rem; font-weight:500;}
+  .edu-card h3{font-size:1.02rem; margin:4px 0 2px;}
+  .edu-card p{color:var(--muted); font-size:0.9rem;}
+
+  /* ---------- Footer / Contact ---------- */
+  footer{
+    background:var(--ink);
+    color:#EDEFEF;
+    padding:72px 0 36px;
+    margin-top:40px;
+  }
+  footer h2{color:#fff; font-size:2rem; max-width:16ch; margin-bottom:20px;}
+  footer p{color:#B7BFC5; max-width:48ch; margin-bottom:32px;}
+  .footer-bottom{
+    display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:space-between;
+    border-top:1px solid #2B3742;
+    margin-top:56px; padding-top:24px;
+    color:#8A939B; font-size:0.85rem;
+  }
+  .footer-links{display:flex; gap:20px;}
+  .footer-links a{color:#EDEFEF;}
+  .footer-links a:hover{color:var(--coral);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo"><span class="dot"></span>Tony&nbsp;George</div>
+    <nav class="navlinks">
+      <a href="#expertise">Expertise</a>
+      <a href="#work">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker">Full Stack Developer · United Kingdom</div>
+      <h1>Hi, I'm Tony George.</h1>
+      <p class="lede">Over 10 years building web applications with React, Redux, GraphQL and Python Django — from live fleet-tracking maps to enterprise e-commerce platforms. Lately, most of that work happens alongside Claude, Copilot and Amazon Kiro, using AI to move faster without giving up engineering judgment.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:Tony.mavumkal@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="#experience">See my experience</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>10+</b><span>Years experience</span></div>
+        <div class="stat"><b>7</b><span>Companies</span></div>
+        <div class="stat"><b>6</b><span>Industry domains</span></div>
+      </div>
+    </div>
+    <div class="portrait-frame">
+      <img src="profile.jpg" alt="Tony M. George">
+    </div>
+  </div>
+</section>
+
+<section id="expertise">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Technical expertise</h2>
+      <span class="tag">01</span>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-card">
+        <h3>Frontend & Frameworks</h3>
+        <div class="chip-row">
+          <span class="chip">React JS</span><span class="chip">Redux</span><span class="chip">GraphQL</span>
+          <span class="chip">Angular JS</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span>
+          <span class="chip">WordPress</span><span class="chip">HTML5</span><span class="chip">SCSS / CSS3</span>
+        </div>
+      </div>
+      <div class="expertise-card">
+        <h3>Backend & Languages</h3>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">Django</span><span class="chip">Node</span>
+          
+        </div>
+      </div>
+      <div class="expertise-card">
+        <h3>Cloud & DevOps</h3>
+        <div class="chip-row">
+          <span class="chip">AWS EC2</span><span class="chip">AWS S3</span><span class="chip">Azure VMs</span>
+          <span class="chip">Azure Bot Services</span><span class="chip">Docker</span><span class="chip">Jenkins</span><span class="chip">Bamboo</span>
+        </div>
+      </div>
+      <div class="expertise-card">
+        <h3>AI-Assisted Development</h3>
+        <div class="chip-row">
+          <span class="chip">Claude</span><span class="chip">GitHub Copilot</span><span class="chip">Amazon Kiro</span>
+        </div>
+      </div>
+      <div class="expertise-card">
+        <h3>Testing & Quality</h3>
+        <div class="chip-row">
+          <span class="chip">Cypress</span><span class="chip">Jest</span><span class="chip">HIPAA</span><span class="chip">GDPR</span>
+        </div>
+      </div>
+      <div class="expertise-card">
+        <h3>Design & Visualization</h3>
+        <div class="chip-row">
+          <span class="chip">Figma</span><span class="chip">Balsamiq</span><span class="chip">Draw.io</span>
+          <span class="chip">D3JS</span><span class="chip">HighCharts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected projects</h2>
+      <span class="tag">02</span>
+    </div>
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="label">Fleet & Telematics</div>
+        <h3>Radius Velocity Fleet</h3>
+        <p>Fleet, vehicle and fuel management platform for UK businesses — fuel cards, EV charging and HMRC-compliant invoicing. Main contributor to the Livemap module: a live vehicle-tracking interface built on React and GraphQL, alongside a Redux-based Telematics module.</p>
+        <div class="chip-row">
+          <span class="chip">React</span><span class="chip">Redux</span><span class="chip">GraphQL</span><span class="chip">Django</span><span class="chip">Docker</span><span class="chip">Google Maps API</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="label">Financial Insights</div>
+        <h3>PIMS Management OS</h3>
+        <p>A suite of web applications giving clients financial insight into their own and their rivals' market performance. Sole developer for the product's landing pages and several WordPress marketing sites, and owner of the Azure DevOps hosting and deployment pipeline.</p>
+        <div class="chip-row">
+          <span class="chip">React</span><span class="chip">Redux</span><span class="chip">WordPress</span><span class="chip">Azure</span><span class="chip">HighCharts</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="label">Cards Platform · Global Payments</div>
+        <h3>Boson</h3>
+        <p>A configurable, multi-bank credit card platform for US cardholders, letting each client bank adjust the app to its own needs. Worked across React (Redux and Hooks) and Angular JS 6 modules, with a focus on code review and optimisation.</p>
+        <div class="chip-row">
+          <span class="chip">React</span><span class="chip">Angular JS 6</span><span class="chip">Cypress</span><span class="chip">Jest</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="label">E-Commerce · Neiman Marcus</div>
+        <h3>Bergdorf Goodman</h3>
+        <p>Rebuild of a luxury-goods e-commerce site, migrating a legacy Oracle ATG application to React. Prepared the overall project architecture at discovery phase and owned deployment through Jenkins CI.</p>
+        <div class="chip-row">
+          <span class="chip">React</span><span class="chip">Redux</span><span class="chip">Jenkins</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Work history</h2>
+      <span class="tag">03</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="role">Full Stack Developer @ Radius Payment Solutions</div>
+        <div class="meta">Nov 2022 – Present</div>
+        <ul>
+          <li>Main contributor to the Livemap module — a live fleet-tracking map built with React and GraphQL.</li>
+          <li>Migrated a large legacy application from Python Django to React and Redux.</li>
+          <li>Handled code review, performance optimisation and technical documentation for existing repositories.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="role">Senior Software Developer @ PIMS Associates</div>
+        <div class="meta">Jun 2022 – Nov 2022</div>
+        <ul>
+          <li>Single-handedly developed the product and product landing pages in React and Redux.</li>
+          <li>Sole developer across several WordPress marketing websites.</li>
+          <li>Owned Azure DevOps hosting and deployment, tuning application performance via Azure services.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="role">Senior Software Developer @ UST Global</div>
+        <div class="meta">Aug 2019 – Jun 2022</div>
+        <ul>
+          <li>Worked across React (Redux, Hooks) and Angular JS 6 modules on a multi-bank credit card platform.</li>
+          <li>Carried out code review, optimisation, and technical documentation.</li>
+          <li>Troubleshot, debugged and upgraded the existing codebase.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="role">Senior Systems Engineer @ Infosys</div>
+        <div class="meta">Nov 2018 – Aug 2019</div>
+        <ul>
+          <li>Prepared the overall architecture for a legacy-to-React e-commerce rebuild at discovery phase.</li>
+          <li>Reviewed and optimised code, and managed deployment through Jenkins CI.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="role">Software Engineer @ Experion Technologies</div>
+        <div class="meta">Jul 2016 – Nov 2018</div>
+      </div>
+      <div class="tl-item">
+        <div class="role">Intern @ E&amp;Y</div>
+        <div class="meta">Jan 2016 – Jul 2016</div>
+      </div>
+      <div class="tl-item">
+        <div class="role">Trainee Software Engineer @ Reflections Infosystems Pvt Ltd</div>
+        <div class="meta">Aug 2015 – Jan 2016</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="domains">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Domains worked in</h2>
+      <span class="tag">04</span>
+    </div>
+    <div class="domain-row">
+      <span class="domain-pill">Finance & Insurance</span>
+      <span class="domain-pill">Telematics</span>
+      <span class="domain-pill">E-Commerce</span>
+      <span class="domain-pill">US Mental Healthcare</span>
+      <span class="domain-pill">Australian Healthcare</span>
+      <span class="domain-pill">Corporate Portfolios</span>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Education</h2>
+      <span class="tag">05</span>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="yr">2014</div>
+        <h3>B-Tech, Computer Science Engineering</h3>
+        <p>University of Kerala · 7.24 CGPA</p>
+      </div>
+      <div class="edu-card">
+        <div class="yr">2010</div>
+        <h3>Class 12 · Kerala HSE Board</h3>
+        <p>87%</p>
+      </div>
+      <div class="edu-card">
+        <div class="yr">2008</div>
+        <h3>Class 10 · Kerala State Board</h3>
+        <p>87%</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's build something.</h2>
+    <p>Open to full stack roles across React, GraphQL and Python — and happy to talk about where AI-assisted development is heading. My inbox is open.</p>
+    <a class="btn btn-primary contact-btn" href="mailto:Tony.mavumkal@gmail.com">Contact me</a>
+    <div class="footer-bottom">
+      <span>United Kingdom · Work permit holder</span>
+      <div class="footer-links">
+        <a href="mailto:Tony.mavumkal@gmail.com">Email</a>
+        <a href="tel:+447769009141">+44 77690 09141</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
